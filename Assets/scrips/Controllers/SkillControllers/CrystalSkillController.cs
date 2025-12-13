@@ -68,6 +68,9 @@ public class CrystalSkillController : SkillController
         }
     }
 
+
+
+
     public void crystalCompleted()
     {
         if (canExplode)
@@ -81,5 +84,34 @@ public class CrystalSkillController : SkillController
         }
     }
 
-    public void SelfDestroy() => Destroy(gameObject);
+
+
+    private void OnEnable()
+    {
+        ResetState();
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    private void ResetState()
+    {
+        canGrow = false;
+        canMove = false;
+        canExplode = false;
+        transform.localScale = Vector3.one;
+        closestTarget = null;
+
+        if (anim != null)
+            anim.Rebind();
+    }
+
+
+    public void SelfDestroy()
+    {
+        CrystalPool.Instance.DespawnCrystal(this);
+    }
+
 }

@@ -986,6 +986,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b473e2d5ed1acd46b4d9d2b28a19ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &404583043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 404583044}
+  m_Layer: 0
+  m_Name: ObjectPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &404583044
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404583043}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -36.481148, y: -2.298589, z: 0.027429258}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 413887033}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &411547500
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,6 +1107,52 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &413887032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 413887033}
+  - component: {fileID: 413887034}
+  m_Layer: 0
+  m_Name: CrystalPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &413887033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413887032}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 404583044}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &413887034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413887032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7d7c7eee100894f8a19e5a8663de3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 4950144643276404149, guid: 6ad8347cf6d80024f9bdae1ae87727fa, type: 3}
+  initialSize: 3
 --- !u!1 &420388488
 GameObject:
   m_ObjectHideFlags: 0
@@ -1874,9 +1952,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4827bbc393663114480ef9567e688714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 0
+  cooldown: 2
   crystalDuration: 5
-  crystalPrefab: {fileID: 7128122694007341, guid: 6ad8347cf6d80024f9bdae1ae87727fa, type: 3}
   cloneInsteadOfCrystal: 0
   canExplode: 1
   canMoveToEnemy: 1
@@ -1884,10 +1961,6 @@ MonoBehaviour:
   canUseMultiStacks: 1
   amountOfStacks: 3
   multiStakeCooldown: 4
-  crystalList:
-  - {fileID: 7128122694007341, guid: 6ad8347cf6d80024f9bdae1ae87727fa, type: 3}
-  - {fileID: 7128122694007341, guid: 6ad8347cf6d80024f9bdae1ae87727fa, type: 3}
-  - {fileID: 7128122694007341, guid: 6ad8347cf6d80024f9bdae1ae87727fa, type: 3}
 --- !u!1 &886360312
 GameObject:
   m_ObjectHideFlags: 0
@@ -9969,7 +10042,7 @@ Transform:
   m_GameObject: {fileID: 1280714789}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.01, y: -2.79, z: -0.0076195574}
+  m_LocalPosition: {x: -27.48, y: -2.67, z: -0.0076195574}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12948,3 +13021,4 @@ SceneRoots:
   - {fileID: 877414113}
   - {fileID: 1280714793}
   - {fileID: 1426644317}
+  - {fileID: 404583044}

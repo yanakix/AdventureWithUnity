@@ -5,7 +5,6 @@ using UnityEngine;
 public class CrystalSkill : Skill
 {
     [SerializeField] private float crystalDuration;
-    [SerializeField] private GameObject crystalPrefab;
     private GameObject currentCrystal;
 
 
@@ -23,7 +22,12 @@ public class CrystalSkill : Skill
     [SerializeField] private bool canUseMultiStacks;
     [SerializeField] private int amountOfStacks;
     [SerializeField] private float multiStakeCooldown;
-    [SerializeField] private List<GameObject> crystalList = new List<GameObject>();
+    private int crystalLeft;
+
+    private void Awake()
+    {
+        crystalLeft = amountOfStacks;
+    }
 
     public override void UseSkiil()
     {
@@ -34,9 +38,13 @@ public class CrystalSkill : Skill
             return;
         }
 
-        if (currentCrystal == null)
+        if (currentCrystal == null || currentCrystal.activeSelf == false)
         {
             CreateCrystal();
+            if (cloneInsteadOfCrystal)
+            {
+                cooldownTimer = -1;
+            }
         }
         else
         {
@@ -52,7 +60,7 @@ public class CrystalSkill : Skill
             if (cloneInsteadOfCrystal)
             {
                 SkillManager.instance.clone.CreateClone(currentCrystal.transform, Vector3.zero, false);
-                Destroy(currentCrystal);
+                CrystalPool.Instance.DespawnCrystal(currentCrystal.GetComponent<CrystalSkillController>());
             }
             else
             {
@@ -63,42 +71,35 @@ public class CrystalSkill : Skill
 
     public void CreateCrystal()
     {
-        currentCrystal = Instantiate(crystalPrefab, player.transform.position, Quaternion.identity);
-        CrystalSkillController currentCrystalScript = currentCrystal.GetComponent<CrystalSkillController>();
-
-        currentCrystalScript.SetupCrystal(crystalDuration, canExplode, canMoveToEnemy, moveSpeed);
+        //get one from pool
+        CrystalSkillController crystal = CrystalPool.Instance.SpawnCrystal(player.transform.position, crystalDuration, canExplode, canMoveToEnemy, moveSpeed);
+        currentCrystal = crystal.gameObject;
     }
 
     private bool TryUseMultiCrystal()
     {
-        if (canUseMultiStacks)
+        if (!canUseMultiStacks )
         {
-            if (crystalList.Count > 0)
+            return false;
+        }
+
+        if (crystalLeft > 0)
+        {
+            cooldown = 0;
+            crystalLeft -= 1;
+
+            CrystalSkillController crystal = CrystalPool.Instance.SpawnCrystal(player.transform.position, crystalDuration, canExplode, canMoveToEnemy, moveSpeed);
+
+
+            if (crystalLeft <= 0)
             {
-                cooldown = 0;
-                GameObject crystalToSpawn = crystalList[crystalList.Count - 1];
-                GameObject newCrystal = Instantiate(crystalToSpawn, player.transform.position, Quaternion.identity);
-
-                crystalList.Remove(crystalToSpawn);
-
-                newCrystal.GetComponent <CrystalSkillController>().SetupCrystal(crystalDuration, canExplode, canMoveToEnemy, moveSpeed);
-
-                if (crystalList.Count <= 0)
-                {
-                    cooldown = multiStakeCooldown;
-                    RefillCrystal();
-                }
+                cooldown = multiStakeCooldown;
+                crystalLeft = amountOfStacks;
             }
-            return true;
         }
-        return false;
+        return true;
+
     }
 
-    private void RefillCrystal()
-    {
-        for (int i = 0; i < amountOfStacks; i++)
-        {
-            crystalList.Add(crystalPrefab);
-        }
-    }
+
 }

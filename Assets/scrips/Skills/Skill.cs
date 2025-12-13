@@ -22,8 +22,8 @@ public class Skill : MonoBehaviour
     {
         if (cooldownTimer < 0)
         {
-            UseSkiil();
             cooldownTimer = cooldown;
+            UseSkiil();
             return true;
         }
 
